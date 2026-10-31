@@ -2,6 +2,7 @@ Step 1
 Clone the repository:
 
 git clone https://github.com/bitsandbytesmac/playwright-js-portfolio.git
+
 cd [YOUR-REPO-NAME]
 
 Step 2
