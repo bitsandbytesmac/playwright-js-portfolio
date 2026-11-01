@@ -4,6 +4,21 @@ test .describe('Products Page Tests', () => {
 
   // This runs automatically before EACH test below it
   test.beforeEach(async ({ page }) => {
+    // Block common ad/tracking networks to prevent ad overlays from breaking tests
+    await page.route('**/*', (route) => {
+        const url = route.request().url();
+        if (
+            url.includes('googleads') || 
+            url.includes('doubleclick') || 
+            url.includes('adsbygoogle') || 
+            url.includes('ezoic') ||
+            url.includes('pagead')
+        ) {
+            return route.abort();
+        }
+        return route.continue();
+    });
+
     //Navigate to url 'http://automationexercise.com'
     await page.goto('http://automationexercise.com');
 
@@ -70,5 +85,5 @@ test .describe('Products Page Tests', () => {
         await expect(product).toBeVisible();
     }
   });
-  
+
 });
